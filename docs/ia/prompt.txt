@@ -1,0 +1,13 @@
+Estou fazendo a Avaliação 2 de Construção de Banco de Dados da UFRJ, no Grupo 1. Minha parte é a **frente 3 — hash externo**. Leia o enunciado, o plano do grupo e os arquivos que já existem no repositório. Depois, implemente e teste minha parte.
+
+Use Python 3 e siga o contrato do grupo, com blocos de 4 KiB, registros fixos de 128 bytes e acesso às páginas pelo buffer. Se o buffer ou o heap ainda estiverem em desenvolvimento, use versões simuladas nos testes para eu conseguir trabalhar em paralelo. Reaproveite as interfaces que já existirem.
+
+Implemente nesta ordem:
+
+1. **Hash primário por chave única.** Use hashing externo estático com encadeamento de blocos de overflow. Faça um teste que force colisões suficientes para criar um bloco extra. Confira se a busca encontra um registro nesse bloco e se uma chave ausente no mesmo bucket retorna vazio.
+2. **Hash primário por chave repetida.** Confira se a busca devolve todos os registros daquele valor, inclusive quando estão em blocos diferentes. Teste também a remoção de um registro em overflow.
+3. **Índice hash secundário por campo único no heap.** O índice deve associar a chave à localização do registro. Teste a recuperação do registro certo, usando o heap do grupo se estiver pronto ou um simulado se ainda estiver em desenvolvimento.
+
+Antes de refatorar, preserve este prompt e uma cópia exata da primeira versão do código para o relatório de IA. Rode os testes e registre as saídas reais. Se encontrar um defeito, guarde o teste que o revelou e a evidência de antes e depois da correção.
+
+No final, me mostre **o comando exato para repetir os testes**, o que eu preciso conferir na saída e **uma explicação de 30 segundos** para apresentar o caso do overflow. Indique também o que ainda precisa ser validado com os módulos reais do grupo

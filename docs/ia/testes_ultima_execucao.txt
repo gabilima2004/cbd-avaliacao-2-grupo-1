@@ -1,0 +1,17 @@
+test_01_unique_overflow (test_hash.HashTests.test_01_unique_overflow) ... ok
+test_02_repeated_delete_overflow (test_hash.HashTests.test_02_repeated_delete_overflow) ... ok
+test_03_secondary_heap (test_hash.HashTests.test_03_secondary_heap) ... ok
+test_04_reopen_scan_range (test_hash.HashTests.test_04_reopen_scan_range) ... ok
+test_05_stress_sqlite (test_hash.HashTests.test_05_stress_sqlite) ... ok
+test_06_invalid_and_lazy_release (test_hash.HashTests.test_06_invalid_and_lazy_release) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.111s
+
+OK
+UNIQUE: 32 colisoes, bucket=1, overflow=5; chave 124 encontrada; 128 ausente
+REPETIDA: 70 registros em 3 blocos; removido registro 40 no overflow; slot reutilizado
+SECUNDARIO: chave 1256 -> RID(3,2) -> aluno 64; remocao preserva heap
+ESTRESSE: semente=42, 3968 insercoes, 234 exclusoes, 42 buscas e faixa conferidas no SQLite
+
+EXIT_CODE=0
