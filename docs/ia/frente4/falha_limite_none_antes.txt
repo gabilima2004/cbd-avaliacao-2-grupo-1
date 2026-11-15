@@ -1,0 +1,28 @@
+COMANDO: python docs/ia/frente4/casos_falhos/limite_none.py
+
+test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) ... 
+  test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) (method='find_range') ... FAIL
+  test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) (method='find_range_rid') ... FAIL
+
+======================================================================
+FAIL: test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) (method='find_range')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\cecil\cbd-avaliacao-2-grupo-1\docs\ia\frente4\casos_falhos\limite_none.py", line 20, in test_none_deve_ser_rejeitado
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) (method='find_range_rid')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\cecil\cbd-avaliacao-2-grupo-1\docs\ia\frente4\casos_falhos\limite_none.py", line 20, in test_none_deve_ser_rejeitado
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=2)
+
+EXIT_CODE=1

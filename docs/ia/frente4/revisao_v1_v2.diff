@@ -1,0 +1,137 @@
+--- codigo_bruto_v1/indice_bmais/core.py
++++ indice_bmais/core.py
+@@ -359,13 +359,12 @@
+         if pos < len(leaf.entries) and leaf.entries[pos].key == key:
+             yield from self._rids(leaf.entries[pos])
+ 
+-    def _entries(self, limite=None, operador=None):
+-        if limite is not None:
+-            check_key(limite)
+-            if operador not in OPS:
+-                raise ValueError('operador deve ser <, <=, > ou >=')
++    def _entries(self, limite, operador):
++        check_key(limite)
++        if operador not in OPS:
++            raise ValueError('operador deve ser <, <=, > ou >=')
+         block = self.first_leaf
+-        if limite is not None and operador in ('>', '>='):
++        if operador in ('>', '>='):
+             block, _, _ = self._descend(limite)
+         for _ in range(self.blocks):
+             if not block:
+@@ -374,7 +373,7 @@
+             if not isinstance(leaf, _Leaf):
+                 raise CorruptFileError('encadeamento de folhas inválido')
+             for entry in leaf.entries:
+-                if limite is None or OPS[operador](entry.key, limite):
++                if OPS[operador](entry.key, limite):
+                     yield entry
+                 elif operador in ('<', '<='):
+                     return
+--- codigo_bruto_v1/selecoes/core.py
++++ selecoes/core.py
+@@ -4,7 +4,7 @@
+ O hash secundário UNIQUE da frente 3 é reutilizado para igualdade no heap.
+ """
+ from buffer_heap import registro
+-from hash_externo.core import HEADER, SIZE, SLOTS
++from hash_externo.core import HEADER, SIZE
+ from indice_bmais.core import OPS, check_field, check_key, check_rid
+ 
+ 
+--- codigo_bruto_v1/tests/test_frente4.py
++++ tests/test_frente4.py
+@@ -71,7 +71,8 @@
+ 
+     def test_02_rids_em_varias_paginas_e_ordem_inversa(self):
+         count = POST_CAPACITY * 3 + 19
+-        rids = [self.heap.insert(registro.encode(i, i, 7)) for i in range(count)]
++        native_rids = [self.heap.insert(registro.encode(i, i, 7)) for i in range(count)]
++        rids = [RID(rid.bloco, rid.slot) for rid in native_rids]
+         for rid in reversed(rids):
+             self.index.insert(7, rid)
+         self.assertEqual(list(self.index.find_rid(7)), rids)
+@@ -130,6 +131,14 @@
+         self.assertEqual(decoded(reopened.find_range(0, '>=')),
+                          [(2, 2, 0), (3, 3, (1 << 63) - 1)])
+         reopened.validate(check_records=True)
++
++    def test_06_limite_none_e_outros_limites_invalidos(self):
++        self.index.insert(7, self.heap.insert(registro.encode(1, 1, 7)))
++        for method in (self.index.find_range, self.index.find_range_rid):
++            for limit in (None, True, '7', 1.5, 1 << 63):
++                with self.subTest(method=method.__name__, limit=limit):
++                    with self.assertRaises(ValueError):
++                        list(method(limit, '<'))
+ 
+ 
+ class TestSelecoes(RealBase):
+@@ -291,18 +300,24 @@
+                                         campo=0, capacidade=capacity)
+                 keys = list(range(-124, 124))
+                 random.Random(42).shuffle(keys)
++                insertion_order = keys.copy()
++                rids = {}
+                 for key in keys:
+-                    index.insert(key, heap.insert(registro.encode(key, key, key % 100)))
++                    rids[key] = heap.insert(registro.encode(key, key, key % 100))
++                    index.insert(key, rids[key])
+                 self.assertGreaterEqual(index.validate(check_records=True)['height'], 4)
+                 random.Random(43).shuffle(keys)
+                 for i, key in enumerate(keys):
+                     self.assertTrue(index.delete(key))
++                    heap.delete(rids[key])
+                     if i % 7 == 0:
+                         index.validate(check_records=True)
+                 empty = index.validate()
+                 self.assertEqual((empty['records'], empty['height']), (0, 1))
+                 before = index.blocks
+-                for key in reversed(keys):
++                # A mesma sequência produz a mesma ocupação; uma ordem diferente
++                # pode legitimamente precisar de mais páginas por causa dos splits.
++                for key in insertion_order:
+                     index.insert(key, heap.insert(registro.encode(key, key, key % 100)))
+                 self.assertLessEqual(index.blocks, before)
+                 index.validate(check_records=True)
+@@ -362,6 +377,41 @@
+                 pool.close()
+         print('ESTRESSE SQLITE: semente=42; 3968 cargas, 1984 exclusoes e reinsercoes; LRU/FIFO, todos os operadores OK')
+ 
++    def test_04_churn_intercalado_em_arvore_profunda(self):
++        pool = self.pool(capacity=3)
++        heap = HeapFile(pool, 'heap_churn')
++        index = BMaisSecundario(pool, 'bplus_churn', heap, campo=2, capacidade=4)
++        rng, model = random.Random(123), {}
++        for step in range(5000):
++            if not model or rng.random() < 0.58:
++                key = rng.randrange(-64, 65)
++                row = (step, step, key)
++                rid = heap.insert(registro.encode(*row))
++                index.insert(key, rid)
++                model.setdefault(key, {})[rid] = row
++            else:
++                key = rng.choice(list(model))
++                if rng.random() < 0.15:
++                    self.assertTrue(index.delete(key))
++                    for rid in model.pop(key):
++                        heap.delete(rid)
++                else:
++                    rid = rng.choice(list(model[key]))
++                    self.assertTrue(index.delete(key, rid))
++                    heap.delete(rid)
++                    del model[key][rid]
++                    if not model[key]:
++                        del model[key]
++            if step % 53 == 0:
++                index.validate(check_records=True)
++                limit = rng.randrange(-65, 66)
++                expected = sorted(row for bucket in model.values()
++                                  for row in bucket.values() if row[2] >= limit)
++                self.assertEqual(decoded(index.find_range(limit, '>=')), expected)
++                self.assertEqual(pool.pinned_count(), 0)
++        index.validate(check_records=True)
++        print('CHURN: 5000 operacoes intercaladas, chaves repetidas, exclusao de pares/grupos; buffer real de 3 paginas')
++
+ 
+ if __name__ == '__main__':
+     unittest.main(verbosity=2)

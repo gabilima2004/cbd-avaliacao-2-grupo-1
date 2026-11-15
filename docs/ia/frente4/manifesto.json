@@ -1,0 +1,90 @@
+{
+  "branch": "frente-4-bmais-selecoes",
+  "base_commit": "336c0d8e860be5d29a35583e594ef692eac7a891",
+  "data_local": "2026-11-15",
+  "referencias_sha256": {
+    "Avaliacao_2_v2_Indexacao_e_Processamento_de_Consultas.pdf": "f9b20ea0a7213781acc178b95fe4360f09d592d380a2b255df0a2d18fc12578b",
+    "Plano_de_trabalho_CBD.docx": "cf21c0ab642591ecb427b27edaa3a29ba045e797920485de0d60696ad722c636"
+  },
+  "codigo_bruto_v1_sha256": {
+    "indice_bmais/core.py": "ac58b0c07bd829941b44d65c78b3b362028cbc984594a61aea96a96f2a830645",
+    "indice_bmais/__init__.py": "9aaca36bc6c3aec7266f4ba74b190e1e91c79ba7132c4518160b5b210efcbcb9",
+    "selecoes/core.py": "71b10034028e5697ec59d829eef0d10e1e05fd68117abeadde0f868c2856ccb1",
+    "selecoes/__init__.py": "2818a3f0052b334d5333c4ccec449b375d754a724f4fa79462d7095bd5117f20",
+    "tests/bench_frente4.py": "c7d7817299a472607e6bb511a72750855f0be3fd610438a9a2662f42a9736006",
+    "tests/simulados_frente4.py": "9bc4b82f876aa4d63639207e87664da6c264e9fe4a23191b52b52c6b8daf3d8e",
+    "tests/test_frente4.py": "768f7f8773755fbb8931b828f5c32f0681781ca5fea8ddbe5f78a3d03af44a96"
+  },
+  "codigo_atual_sha256": {
+    "indice_bmais/core.py": "406f53de53f7da21c7c04a8f6e175a7b4e4a95f786ca41812c6cf25fdc702209",
+    "indice_bmais/__init__.py": "9aaca36bc6c3aec7266f4ba74b190e1e91c79ba7132c4518160b5b210efcbcb9",
+    "selecoes/core.py": "459d03ed67448e9473141876011f5e086851ccd2d015716cbb0c7055753b0d18",
+    "selecoes/__init__.py": "2818a3f0052b334d5333c4ccec449b375d754a724f4fa79462d7095bd5117f20",
+    "tests/bench_frente4.py": "c7d7817299a472607e6bb511a72750855f0be3fd610438a9a2662f42a9736006",
+    "tests/simulados_frente4.py": "9bc4b82f876aa4d63639207e87664da6c264e9fe4a23191b52b52c6b8daf3d8e",
+    "tests/test_frente4.py": "da149ef7ca26dad6e4fcf5284259a98d79b6a6015d7993c769e8a1bca69df653"
+  },
+  "arquivos_revisados": [
+    "indice_bmais/core.py",
+    "selecoes/core.py",
+    "tests/test_frente4.py"
+  ],
+  "execucoes": {
+    "testes_base.txt": {
+      "testes": 35,
+      "exit_code": 0
+    },
+    "testes_v1.txt": {
+      "testes": 49,
+      "falhas_de_teste": 3,
+      "exit_code": 1,
+      "codigo": "codigo_bruto_v1"
+    },
+    "falha_limite_none_antes.txt": {
+      "testes": 1,
+      "subtestes_falhos": 2,
+      "exit_code": 1,
+      "codigo": "codigo_bruto_v1"
+    },
+    "falha_limite_none_depois.txt": {
+      "testes": 1,
+      "exit_code": 0,
+      "codigo": "codigo_atual"
+    },
+    "testes_v2.txt": {
+      "testes": 51,
+      "exit_code": 0,
+      "codigo": "codigo_atual"
+    },
+    "bench_primeira_execucao.txt": {
+      "cenarios": 84,
+      "medicoes": 252,
+      "exit_code": 0,
+      "codigo": "codigo_atual",
+      "csv": "bench_v1.csv"
+    }
+  },
+  "evidencias_sha256": {
+    "bench_primeira_execucao.txt": "f344e710e980a1922458ff4210a2973eab5dada383fa299df5a37e01242173d4",
+    "bench_v1.csv": "56509ae99563a7c9d81b3b63642aa383ca554b441bf3e018ded5d60186acda57",
+    "bench_v1.txt": "fbfb3cdac02ca01ab6c8adad5807bc769869046193a9451f2d0059310f9f8331",
+    "casos_falhos/limite_none.py": "4ab0d43070c8c8ac8bc29911485eed4baec6f6bce9c1d26a4bfc4f099b9c2ed8",
+    "codigo_bruto_v1/indice_bmais/__init__.py": "9aaca36bc6c3aec7266f4ba74b190e1e91c79ba7132c4518160b5b210efcbcb9",
+    "codigo_bruto_v1/indice_bmais/core.py": "ac58b0c07bd829941b44d65c78b3b362028cbc984594a61aea96a96f2a830645",
+    "codigo_bruto_v1/selecoes/__init__.py": "2818a3f0052b334d5333c4ccec449b375d754a724f4fa79462d7095bd5117f20",
+    "codigo_bruto_v1/selecoes/core.py": "71b10034028e5697ec59d829eef0d10e1e05fd68117abeadde0f868c2856ccb1",
+    "codigo_bruto_v1/SHA256SUMS.txt": "eea91c027cefa42ce9de8da6728cc5b0dbb23ec918975f8dc59539882495c577",
+    "codigo_bruto_v1/tests/bench_frente4.py": "c7d7817299a472607e6bb511a72750855f0be3fd610438a9a2662f42a9736006",
+    "codigo_bruto_v1/tests/simulados_frente4.py": "9bc4b82f876aa4d63639207e87664da6c264e9fe4a23191b52b52c6b8daf3d8e",
+    "codigo_bruto_v1/tests/test_frente4.py": "768f7f8773755fbb8931b828f5c32f0681781ca5fea8ddbe5f78a3d03af44a96",
+    "exemplo_execucao.txt": "f5c068b28037317aa434c69154a297b096d6fe7422a7edeb4d7abb4096263b07",
+    "falha_limite_none_antes.txt": "a4840aea828324a37e40b186c9e34e01b72c4ef82422abca9af1a4cc8a06b998",
+    "falha_limite_none_depois.txt": "e1bdb3972fecdcaf10321adb33403cadc4459d4c67b78b604bd68b3e96c9df78",
+    "prompt.txt": "d4295a5a4a49e4058fc2efb32148e5b1e415f9800f227287c9cded65c1112f5f",
+    "REVISAO.md": "cb9ba9211132d96b739d492679cad251dd7b905591875515d609dd86281928a5",
+    "revisao_v1_v2.diff": "dda8a1964dbcad4f8e0aea87081a35ea6b9186bbb16977e6b064012ac96155a1",
+    "testes_base.txt": "f14cdabbdeb7959cfe4c11f4b9ef7f107b3e1f55669813758408dc5040d7fd4e",
+    "testes_v1.txt": "932cf28de658a70cccff2ba934b7a5deedec34f9b9044c1b8cf43c03ae3e5daa",
+    "testes_v2.txt": "757a137464ee594c314430122a91b6b49d68183cf1fe5c1a40fa92cab0970acf"
+  }
+}

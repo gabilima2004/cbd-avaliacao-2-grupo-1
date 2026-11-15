@@ -1,4 +1,37 @@
-# Frente 3 — hash externo
+# Avaliação 2 de CBD — Grupo 1
+
+Python 3.11 e biblioteca padrão. Módulos atuais: `buffer_heap` (frente 1),
+`hash_externo` (frente 3), `indice_bmais` e `selecoes` (frente 4).
+A B+ primária da frente 2 ainda não está neste repositório.
+
+## Frente 4 — índice B+ secundário e seleções
+
+Na raiz:
+
+```powershell
+python tests/run.py docs/ia/frente4/testes_ultima_execucao.txt
+python tests/bench_frente4.py
+```
+
+Confira `Ran 51 tests`, `OK` e `EXIT_CODE=0`. Na bancada, confira
+`CENARIOS=84; MEDICOES=252`, `SQLITE=OK`, `PINS=0` e `ESCRITAS_CONSULTAS=0`.
+Ela gera `docs/ia/frente4/bench_ultima_execucao.csv` e `.txt`: 248/3.968 registros,
+semente 42, buffer frio de 32 páginas, LRU/FIFO e três repetições.
+
+A B+ secundária tem uma entrada por valor distinto, listas paginadas de RIDs,
+divisão até a raiz, remoção com redistribuição/fusão e reuso de páginas.
+`TabelaSelecao` oferece o contrato `scan/primary/secondary`, inclusive registrando
+`scan` quando uma faixa solicitada ao hash primário exige varredura.
+No heap, igualdade UNIQUE via índice usa o hash secundário já existente.
+
+Uso, decisões físicas, limites, manutenção dos índices e fala para apresentação:
+[docs/FRENTE4.md](docs/FRENTE4.md).
+Prompt, código bruto, hashes, falha real antes/depois e revisão:
+[docs/ia/frente4/REVISAO.md](docs/ia/frente4/REVISAO.md).
+A B+ primária foi simulada apenas para validar o contrato; suas medidas físicas e
+o clustering exigido sobre B+/hash continuam sendo itens obrigatórios de integração.
+
+## Frente 3 — hash externo
 
 Implementação em Python 3.11, somente biblioteca padrão. Fontes: enunciado da Avaliação 2 (seções 3.5, 4.2 e 7) e plano do grupo. O repositório recebido continha somente esses dois documentos, sem interfaces implementadas nem AGENTS.md.
 
@@ -8,7 +41,7 @@ Na raiz, execute:
 python tests/run.py
 ```
 
-Confira seis testes `ok`, `Ran 6 tests`, `OK` e `EXIT_CODE=0`. As linhas UNIQUE, REPETIDA, SECUNDARIO e ESTRESSE descrevem as verificações, feitas com asserts. A saída é salva em `docs/ia/testes_ultima_execucao.txt`. Não é necessário instalar dependências. `pypdf` foi usado apenas para ler o enunciado, não faz parte da implementação.
+Os seis testes de hash agora executam junto com as demais frentes. As linhas UNIQUE, REPETIDA, SECUNDARIO e ESTRESSE descrevem suas verificações, feitas com asserts. A saída desse comando é salva em `docs/ia/testes_ultima_execucao.txt`. Para executar só o hash: `python -m unittest tests.test_hash -v`. Não é necessário instalar dependências. `pypdf` foi usado apenas para ler o enunciado, não faz parte da implementação.
 
 ## Uso e integração
 
@@ -22,7 +55,7 @@ registros = list(h.find_equal(0, 1, 'primary'))
 h = HashPrimario(buffer, arquivo, allocate)
 ```
 
-`buffer.pin(arquivo, bloco)` deve devolver bytes mutáveis de 4096 bytes e `buffer.unpin(arquivo, bloco, dirty=False)` deve liberar a página. Não há I/O direto no hash. O adaptador `allocate(arquivo)` deve reservar um bloco zerado no fim e retornar seu número; criação exige arquivo vazio. A alocação é responsabilidade do gerente de arquivos, ainda ausente. Arquivos de dados e índice devem ter identificadores distintos.
+`buffer.pin(arquivo, bloco)` deve devolver bytes mutáveis de 4096 bytes e `buffer.unpin(arquivo, bloco, dirty=False)` deve liberar a página. Não há I/O direto no hash. O adaptador `allocate(arquivo)` deve reservar um bloco zerado no fim e retornar seu número; criação exige arquivo vazio. Com a frente 1, abra o arquivo com `buffer.fm.open(arquivo, 'data')` (ou `'index'`) e forneça `buffer.allocate`. Arquivos de dados e índice devem ter identificadores distintos.
 
 `Registro` é um codec provisório para três inteiros signed de 64 bits, little-endian, mais 104 bytes de preenchimento. Os campos 0/1/2 representam `aluno_id/dre/faixa_cr` ou `inscricao_id/aluno_id/turma_id`. As consultas devolvem iteradores de registros em `bytes`; `scan_pages()` entrega uma lista por página, sem manter páginas fixadas entre yields. `campo` usa posição, a tradução de nomes deve vir do catálogo.
 

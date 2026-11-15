@@ -1,0 +1,9 @@
+# Preservar byte a byte as evidencias e as copias originais do relatorio de IA.
+docs/ia/frente4/** -text
+
+# Os hashes do codigo auditado foram calculados com quebras LF.
+indice_bmais/*.py text eol=lf
+selecoes/*.py text eol=lf
+tests/bench_frente4.py text eol=lf
+tests/simulados_frente4.py text eol=lf
+tests/test_frente4.py text eol=lf

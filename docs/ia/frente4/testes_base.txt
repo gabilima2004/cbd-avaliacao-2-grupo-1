@@ -1,0 +1,49 @@
+test_clean_page_not_written (test_buffer_heap.TestBuffer.test_clean_page_not_written) ... ok
+test_close_with_pinned_page_fails (test_buffer_heap.TestBuffer.test_close_with_pinned_page_fails) ... ok
+test_context_manager_closes_files (test_buffer_heap.TestBuffer.test_context_manager_closes_files) ... ok
+test_corrupt_file_size_rejected (test_buffer_heap.TestBuffer.test_corrupt_file_size_rejected) ... ok
+test_dirty_written_on_eviction_only (test_buffer_heap.TestBuffer.test_dirty_written_on_eviction_only) ... ok
+test_drop_all_gives_cold_buffer (test_buffer_heap.TestBuffer.test_drop_all_gives_cold_buffer) ... ok
+test_fifo_known_sequence (test_buffer_heap.TestBuffer.test_fifo_known_sequence) ... ok
+test_full_pool_failures_leave_no_trace (test_buffer_heap.TestBuffer.test_full_pool_failures_leave_no_trace) ... ok
+test_invalid_args (test_buffer_heap.TestBuffer.test_invalid_args) ... ok
+test_lru_known_sequence (test_buffer_heap.TestBuffer.test_lru_known_sequence) ... ok
+test_nested_pins_counted (test_buffer_heap.TestBuffer.test_nested_pins_counted) ... ok
+test_persistence_after_flush_and_reopen (test_buffer_heap.TestBuffer.test_persistence_after_flush_and_reopen) ... ok
+test_pinned_page_never_evicted_and_full_pool (test_buffer_heap.TestBuffer.test_pinned_page_never_evicted_and_full_pool) ... ok
+test_unpin_without_pin_and_out_of_range (test_buffer_heap.TestBuffer.test_unpin_without_pin_and_out_of_range) ... ok
+test_31_per_block_and_sizes (test_buffer_heap.TestHeap.test_31_per_block_and_sizes) ... ok
+test_access_path_only_scan (test_buffer_heap.TestHeap.test_access_path_only_scan) ... ok
+test_delete_errors (test_buffer_heap.TestHeap.test_delete_errors) ... ok
+test_file_layout_4096_and_header (test_buffer_heap.TestHeap.test_file_layout_4096_and_header) ... C:\Users\cecil\cbd-avaliacao-2-grupo-1\tests\test_buffer_heap.py:205: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\cecil\\AppData\\Local\\Temp\\tmprajsx5sd\\heap'>
+  raw = open(os.path.join(self.dir, 'heap'), 'rb').read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_free_list_invariant (test_buffer_heap.TestHeap.test_free_list_invariant) ... ok
+test_insert_cost_is_one_block (test_buffer_heap.TestHeap.test_insert_cost_is_one_block) ... ok
+test_insert_wrong_size (test_buffer_heap.TestHeap.test_insert_wrong_size) ... ok
+test_reopen_persistence (test_buffer_heap.TestHeap.test_reopen_persistence) ... ok
+test_scan_cost_cold (test_buffer_heap.TestHeap.test_scan_cost_cold) ... ok
+test_scan_pages_holds_no_pin_between_yields (test_buffer_heap.TestHeap.test_scan_pages_holds_no_pin_between_yields) ... ok
+test_selection_matches_sqlite (test_buffer_heap.TestHeap.test_selection_matches_sqlite) ... ok
+test_slot_reuse_after_delete (test_buffer_heap.TestHeap.test_slot_reuse_after_delete) ... ok
+test_churn_fifo (test_buffer_heap.TestStress.test_churn_fifo) ... ok
+test_churn_lru (test_buffer_heap.TestStress.test_churn_lru) ... ok
+test_exception_in_scan_consumer_leaves_no_pin (test_buffer_heap.TestStress.test_exception_in_scan_consumer_leaves_no_pin) ... ok
+test_01_unique_overflow (test_hash.HashTests.test_01_unique_overflow) ... ok
+test_02_repeated_delete_overflow (test_hash.HashTests.test_02_repeated_delete_overflow) ... ok
+test_03_secondary_heap (test_hash.HashTests.test_03_secondary_heap) ... ok
+test_04_reopen_scan_range (test_hash.HashTests.test_04_reopen_scan_range) ... ok
+test_05_stress_sqlite (test_hash.HashTests.test_05_stress_sqlite) ... ok
+test_06_invalid_and_lazy_release (test_hash.HashTests.test_06_invalid_and_lazy_release) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 1.885s
+
+OK
+UNIQUE: 32 chaves no mesmo bucket, overflow=5; chave 124 encontrada; 128 ausente; duplicata rejeitada
+REPETIDA: 70 registros em 3 blocos; removido registro 40 no overflow; slot reutilizado
+SECUNDARIO: chave 1256 -> RID(3,2) -> aluno 64; remocao preserva heap
+ESTRESSE: semente=42, 3968 insercoes, 234 exclusoes, 42 buscas e faixa conferidas no SQLite
+
+EXIT_CODE=0

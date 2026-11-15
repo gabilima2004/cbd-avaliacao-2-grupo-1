@@ -1,0 +1,102 @@
+test_clean_page_not_written (test_buffer_heap.TestBuffer.test_clean_page_not_written) ... ok
+test_close_with_pinned_page_fails (test_buffer_heap.TestBuffer.test_close_with_pinned_page_fails) ... ok
+test_context_manager_closes_files (test_buffer_heap.TestBuffer.test_context_manager_closes_files) ... ok
+test_corrupt_file_size_rejected (test_buffer_heap.TestBuffer.test_corrupt_file_size_rejected) ... ok
+test_dirty_written_on_eviction_only (test_buffer_heap.TestBuffer.test_dirty_written_on_eviction_only) ... ok
+test_drop_all_gives_cold_buffer (test_buffer_heap.TestBuffer.test_drop_all_gives_cold_buffer) ... ok
+test_fifo_known_sequence (test_buffer_heap.TestBuffer.test_fifo_known_sequence) ... ok
+test_full_pool_failures_leave_no_trace (test_buffer_heap.TestBuffer.test_full_pool_failures_leave_no_trace) ... ok
+test_invalid_args (test_buffer_heap.TestBuffer.test_invalid_args) ... ok
+test_lru_known_sequence (test_buffer_heap.TestBuffer.test_lru_known_sequence) ... ok
+test_nested_pins_counted (test_buffer_heap.TestBuffer.test_nested_pins_counted) ... ok
+test_persistence_after_flush_and_reopen (test_buffer_heap.TestBuffer.test_persistence_after_flush_and_reopen) ... ok
+test_pinned_page_never_evicted_and_full_pool (test_buffer_heap.TestBuffer.test_pinned_page_never_evicted_and_full_pool) ... ok
+test_unpin_without_pin_and_out_of_range (test_buffer_heap.TestBuffer.test_unpin_without_pin_and_out_of_range) ... ok
+test_31_per_block_and_sizes (test_buffer_heap.TestHeap.test_31_per_block_and_sizes) ... ok
+test_access_path_only_scan (test_buffer_heap.TestHeap.test_access_path_only_scan) ... ok
+test_delete_errors (test_buffer_heap.TestHeap.test_delete_errors) ... ok
+test_file_layout_4096_and_header (test_buffer_heap.TestHeap.test_file_layout_4096_and_header) ... C:\Users\cecil\cbd-avaliacao-2-grupo-1\tests\test_buffer_heap.py:205: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\cecil\\AppData\\Local\\Temp\\tmp629wsggg\\heap'>
+  raw = open(os.path.join(self.dir, 'heap'), 'rb').read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_free_list_invariant (test_buffer_heap.TestHeap.test_free_list_invariant) ... ok
+test_insert_cost_is_one_block (test_buffer_heap.TestHeap.test_insert_cost_is_one_block) ... ok
+test_insert_wrong_size (test_buffer_heap.TestHeap.test_insert_wrong_size) ... ok
+test_reopen_persistence (test_buffer_heap.TestHeap.test_reopen_persistence) ... ok
+test_scan_cost_cold (test_buffer_heap.TestHeap.test_scan_cost_cold) ... ok
+test_scan_pages_holds_no_pin_between_yields (test_buffer_heap.TestHeap.test_scan_pages_holds_no_pin_between_yields) ... ok
+test_selection_matches_sqlite (test_buffer_heap.TestHeap.test_selection_matches_sqlite) ... ok
+test_slot_reuse_after_delete (test_buffer_heap.TestHeap.test_slot_reuse_after_delete) ... ok
+test_churn_fifo (test_buffer_heap.TestStress.test_churn_fifo) ... ok
+test_churn_lru (test_buffer_heap.TestStress.test_churn_lru) ... ok
+test_exception_in_scan_consumer_leaves_no_pin (test_buffer_heap.TestStress.test_exception_in_scan_consumer_leaves_no_pin) ... ok
+test_01_valores_repetidos_negativos_e_limites (test_frente4.TestBasico.test_01_valores_repetidos_negativos_e_limites) ... ok
+test_02_rids_em_varias_paginas_e_ordem_inversa (test_frente4.TestBasico.test_02_rids_em_varias_paginas_e_ordem_inversa) ... FAIL
+test_03_duplicata_e_entradas_invalidas_nao_alteram_indice (test_frente4.TestBasico.test_03_duplicata_e_entradas_invalidas_nao_alteram_indice) ... ok
+test_04_iteracao_parcial_libera_pins_e_excecao_do_consumidor (test_frente4.TestBasico.test_04_iteracao_parcial_libera_pins_e_excecao_do_consumidor) ... ok
+test_05_reabertura_recupera_metadados_e_chaves_int64 (test_frente4.TestBasico.test_05_reabertura_recupera_metadados_e_chaves_int64) ... ok
+test_01_divisoes_fusoes_redistribuicao_e_raiz (test_frente4.TestEstresse.test_01_divisoes_fusoes_redistribuicao_e_raiz) ... 
+  test_01_divisoes_fusoes_redistribuicao_e_raiz (test_frente4.TestEstresse.test_01_divisoes_fusoes_redistribuicao_e_raiz) (capacity=4) ... FAIL
+  test_01_divisoes_fusoes_redistribuicao_e_raiz (test_frente4.TestEstresse.test_01_divisoes_fusoes_redistribuicao_e_raiz) (capacity=5) ... FAIL
+test_02_fanout_fisico_divide_no_interno_e_raiz (test_frente4.TestEstresse.test_02_fanout_fisico_divide_no_interno_e_raiz) ... ok
+test_03_3968_registros_manutencao_e_sqlite_lru_fifo (test_frente4.TestEstresse.test_03_3968_registros_manutencao_e_sqlite_lru_fifo) ... ok
+test_01_heap_real_hash_unique_e_bplus_not_unique (test_frente4.TestSelecoes.test_01_heap_real_hash_unique_e_bplus_not_unique) ... ok
+test_02_hash_real_primary_faixa_vira_scan_e_secondary (test_frente4.TestSelecoes.test_02_hash_real_primary_faixa_vira_scan_e_secondary) ... ok
+test_03_bplus_primaria_simulada_delega_contrato (test_frente4.TestSelecoes.test_03_bplus_primaria_simulada_delega_contrato) ... ok
+test_04_remocao_e_reuso_de_rid_exigem_manutencao (test_frente4.TestSelecoes.test_04_remocao_e_reuso_de_rid_exigem_manutencao) ... ok
+test_05_persistencia_real_e_evicao_dirty_lru_fifo (test_frente4.TestSelecoes.test_05_persistencia_real_e_evicao_dirty_lru_fifo) ... ok
+test_06_erros_de_catalogo_parametros_e_cabecalho (test_frente4.TestSelecoes.test_06_erros_de_catalogo_parametros_e_cabecalho) ... ok
+test_01_unique_overflow (test_hash.HashTests.test_01_unique_overflow) ... ok
+test_02_repeated_delete_overflow (test_hash.HashTests.test_02_repeated_delete_overflow) ... ok
+test_03_secondary_heap (test_hash.HashTests.test_03_secondary_heap) ... ok
+test_04_reopen_scan_range (test_hash.HashTests.test_04_reopen_scan_range) ... ok
+test_05_stress_sqlite (test_hash.HashTests.test_05_stress_sqlite) ... ok
+test_06_invalid_and_lazy_release (test_hash.HashTests.test_06_invalid_and_lazy_release) ... ok
+
+======================================================================
+FAIL: test_02_rids_em_varias_paginas_e_ordem_inversa (test_frente4.TestBasico.test_02_rids_em_varias_paginas_e_ordem_inversa)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\cecil\cbd-avaliacao-2-grupo-1\tests\test_frente4.py", line 77, in test_02_rids_em_varias_paginas_e_ordem_inversa
+    self.assertEqual(list(self.index.find_rid(7)), rids)
+AssertionError: Lists differ: [RID([17715 chars]o=25, slot=16), RID(bloco=25, slot=17), RID(bloco=25, slot=18)] != [RID([17715 chars]o=25, slot=16), RID(bloco=25, slot=17), RID(bloco=25, slot=18)]
+
+First differing element 0:
+RID(bloco=1, slot=0)
+RID(bloco=1, slot=0)
+
+Diff is 20072 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_01_divisoes_fusoes_redistribuicao_e_raiz (test_frente4.TestEstresse.test_01_divisoes_fusoes_redistribuicao_e_raiz) (capacity=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\cecil\cbd-avaliacao-2-grupo-1\tests\test_frente4.py", line 307, in test_01_divisoes_fusoes_redistribuicao_e_raiz
+    self.assertLessEqual(index.blocks, before)
+AssertionError: 114 not less than or equal to 113
+
+======================================================================
+FAIL: test_01_divisoes_fusoes_redistribuicao_e_raiz (test_frente4.TestEstresse.test_01_divisoes_fusoes_redistribuicao_e_raiz) (capacity=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\cecil\cbd-avaliacao-2-grupo-1\tests\test_frente4.py", line 307, in test_01_divisoes_fusoes_redistribuicao_e_raiz
+    self.assertLessEqual(index.blocks, before)
+AssertionError: 90 not less than or equal to 88
+
+----------------------------------------------------------------------
+Ran 49 tests in 9.875s
+
+FAILED (failures=3)
+BASICO: 248 registros, 13 chaves distintas; negativos e quatro desigualdades OK (buffer/heap simulados)
+ESTRESSE ESTRUTURAL: capacidades 3/4/5; altura >=4, exclusao total, raiz reduzida e paginas reutilizadas
+ESTRESSE FISICO: 11000 chaves, folhas=82, fanout=248, altura=3; sem capacidade artificial
+ESTRESSE SQLITE: semente=42; 3968 cargas, 1984 exclusoes e reinsercoes; LRU/FIFO, todos os operadores OK
+SELECOES REAIS: heap + hash secundario UNIQUE + B+ NOT UNIQUE; resultados iguais ao SQLite
+HASH REAL: igualdade usa primary; faixa solicitada como primary registra scan; B+ secundaria OK
+B+ PRIMARIA SIMULADA: somente contrato/delegacao; nenhuma medida fisica atribuida a este duble
+UNIQUE: 32 chaves no mesmo bucket, overflow=5; chave 124 encontrada; 128 ausente; duplicata rejeitada
+REPETIDA: 70 registros em 3 blocos; removido registro 40 no overflow; slot reutilizado
+SECUNDARIO: chave 1256 -> RID(3,2) -> aluno 64; remocao preserva heap
+ESTRESSE: semente=42, 3968 insercoes, 234 exclusoes, 42 buscas e faixa conferidas no SQLite
+
+EXIT_CODE=1

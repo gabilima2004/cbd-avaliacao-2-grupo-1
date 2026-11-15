@@ -1,0 +1,5 @@
+COMANDO: python .tools/exemplo_frente4.py
+
+[0, 4]
+
+EXIT_CODE=0

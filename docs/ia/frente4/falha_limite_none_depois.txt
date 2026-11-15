@@ -1,0 +1,10 @@
+COMANDO: python docs/ia/frente4/casos_falhos/limite_none.py
+
+test_none_deve_ser_rejeitado (__main__.LimiteInvalido.test_none_deve_ser_rejeitado) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+EXIT_CODE=0
