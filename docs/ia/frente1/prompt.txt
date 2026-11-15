@@ -1,0 +1,27 @@
+PROMPT-CHAVE (Frente 1 - Arquivos, buffer e heap), enviado pela Giulia Cadorin
+
+Contexto fornecido: enunciado da Avaliação 2 (PDF), Plano_de_trabalho_CBD.docx e o repositório do grupo.
+
+"o trabalho é o seguinte: vocês vão programar uma bancada que simula como um banco de dados lê e grava
+blocos. Depois, vão rodar seleções e junções com diferentes organizações de arquivo e índices, medir
+quantos blocos cada configuração acessa e explicar qual funciona melhor em cada cenário. [...]
+no documento plano de trabalho está a divisão por pessoa no trabalho. Escolha uma parte para eu, giulia
+cadorin, desenvolver. As partes 3 e 5 já foram escolhidas então não pegue essas"
+-> a IA escolheu a Frente 1.
+
+Segundo prompt: "Sim, começar".
+
+Requisitos da Frente 1 usados (plano de trabalho): arquivos em blocos de 4 KiB (bloco 0 = cabeçalho,
+bloco n em n*4096, novos blocos no fim); heap com registros de 128 B, 31 posições por bloco, marca de
+ocupação, reaproveitamento de posições liberadas; buffer pool de 32 páginas, LRU e FIFO; pin/unpin com
+dirty; gravação na expulsão ou no flush; métricas (leituras/gravações físicas, requisições, acertos,
+faltas, taxa de acerto, gravações por expulsão/flush, blocos por tipo); contrato buffer.pin/unpin e
+tabela.scan_pages/find_equal/find_range.
+
+Código bruto devolvido pela IA, antes de qualquer edição: docs/ia/frente1/codigo_bruto_v1/
+SHA-256:
+  buffer.py   2E04F32ED84FFE6082154C655B7667ECA2BDDE22E1118207B97F6B1E8F0C72D6
+  files.py    76627E749DDE7A00D8533F8FAF3DF58CC1AF8A3B27276C95DAE1C32B2B69A068
+  heap.py     46847BA6E40CBEDD098FAA0A6AC8C3B473BD29F47BBFDDC979A6C37D72216B57
+  registro.py 029D350EB78D3BBB9C511BCC2B2CEEAEB6A53F6ED0C1716A4E15BF9C1064D580
+  __init__.py 2352C1C4B9B6D986A1D0B40056124479D27D16AC5010F17E01050DF4DFB3455C
