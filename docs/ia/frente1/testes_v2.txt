@@ -1,0 +1,51 @@
+﻿python : test_clean_page_not_written (tests.test_buffer_heap.TestBuffer.test_clean_page_not_written) ... ok
+No linha:1 caractere:355
++ ... -2-grupo-1; python -m unittest tests.test_buffer_heap -v *> docs/ia/f ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_clean_page...written) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_close_with_pinned_page_fails (tests.test_buffer_heap.TestBuffer.test_close_with_pinned_page_fails) ... ok
+test_context_manager_closes_files (tests.test_buffer_heap.TestBuffer.test_context_manager_closes_files) ... ok
+test_corrupt_file_size_rejected (tests.test_buffer_heap.TestBuffer.test_corrupt_file_size_rejected) ... ok
+test_dirty_written_on_eviction_only (tests.test_buffer_heap.TestBuffer.test_dirty_written_on_eviction_only) ... ok
+test_drop_all_gives_cold_buffer (tests.test_buffer_heap.TestBuffer.test_drop_all_gives_cold_buffer) ... ok
+test_fifo_known_sequence (tests.test_buffer_heap.TestBuffer.test_fifo_known_sequence) ... ok
+test_full_pool_failures_leave_no_trace (tests.test_buffer_heap.TestBuffer.test_full_pool_failures_leave_no_trace) ... 
+ok
+test_invalid_args (tests.test_buffer_heap.TestBuffer.test_invalid_args) ... ok
+test_lru_known_sequence (tests.test_buffer_heap.TestBuffer.test_lru_known_sequence) ... ok
+test_nested_pins_counted (tests.test_buffer_heap.TestBuffer.test_nested_pins_counted) ... ok
+test_persistence_after_flush_and_reopen (tests.test_buffer_heap.TestBuffer.test_persistence_after_flush_and_reopen) 
+... ok
+test_pinned_page_never_evicted_and_full_pool 
+(tests.test_buffer_heap.TestBuffer.test_pinned_page_never_evicted_and_full_pool) ... ok
+test_unpin_without_pin_and_out_of_range (tests.test_buffer_heap.TestBuffer.test_unpin_without_pin_and_out_of_range) 
+... ok
+test_31_per_block_and_sizes (tests.test_buffer_heap.TestHeap.test_31_per_block_and_sizes) ... ok
+test_access_path_only_scan (tests.test_buffer_heap.TestHeap.test_access_path_only_scan) ... ok
+test_delete_errors (tests.test_buffer_heap.TestHeap.test_delete_errors) ... ok
+test_file_layout_4096_and_header (tests.test_buffer_heap.TestHeap.test_file_layout_4096_and_header) ... 
+C:\Users\giuli\Documents\cbd-avaliacao-2-grupo-1\tests\test_buffer_heap.py:205: ResourceWarning: unclosed file 
+<_io.BufferedReader name='C:\\Users\\giuli\\AppData\\Local\\Temp\\tmpi930eqv1\\heap'>
+  raw = open(os.path.join(self.dir, 'heap'), 'rb').read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_free_list_invariant (tests.test_buffer_heap.TestHeap.test_free_list_invariant) ... ok
+test_insert_cost_is_one_block (tests.test_buffer_heap.TestHeap.test_insert_cost_is_one_block) ... ok
+test_insert_wrong_size (tests.test_buffer_heap.TestHeap.test_insert_wrong_size) ... ok
+test_reopen_persistence (tests.test_buffer_heap.TestHeap.test_reopen_persistence) ... ok
+test_scan_cost_cold (tests.test_buffer_heap.TestHeap.test_scan_cost_cold) ... ok
+test_scan_pages_holds_no_pin_between_yields 
+(tests.test_buffer_heap.TestHeap.test_scan_pages_holds_no_pin_between_yields) ... ok
+test_selection_matches_sqlite (tests.test_buffer_heap.TestHeap.test_selection_matches_sqlite) ... ok
+test_slot_reuse_after_delete (tests.test_buffer_heap.TestHeap.test_slot_reuse_after_delete) ... ok
+test_churn_fifo (tests.test_buffer_heap.TestStress.test_churn_fifo) ... ok
+test_churn_lru (tests.test_buffer_heap.TestStress.test_churn_lru) ... ok
+test_exception_in_scan_consumer_leaves_no_pin 
+(tests.test_buffer_heap.TestStress.test_exception_in_scan_consumer_leaves_no_pin) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.422s
+
+OK
