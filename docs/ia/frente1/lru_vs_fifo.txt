@@ -1,0 +1,35 @@
+﻿             carga               pool           politica        requisicoes        taxa_acerto   leituras_fisicas  var_repeticao_pct var_entre_sementes lru_melhor_ou_igua
+      scan_ciclico                 16                LRU                384                0.0              384.0                0.0                0.0               True
+      scan_ciclico                 16               FIFO                384                0.0              384.0                0.0                0.0               True
+      scan_ciclico                 32                LRU                384                0.0              384.0                0.0                0.0               True
+      scan_ciclico                 32               FIFO                384                0.0              384.0                0.0                0.0               True
+      scan_ciclico                 64                LRU                384                0.0              384.0                0.0                0.0               True
+      scan_ciclico                 64               FIFO                384                0.0              384.0                0.0                0.0               True
+    loop_24_blocos                 16                LRU                480                0.0              480.0                0.0                0.0               True
+    loop_24_blocos                 16               FIFO                480                0.0              480.0                0.0                0.0               True
+    loop_24_blocos                 32                LRU                480               95.0               24.0                0.0                0.0               True
+    loop_24_blocos                 32               FIFO                480               95.0               24.0                0.0                0.0               True
+    loop_24_blocos                 64                LRU                480               95.0               24.0                0.0                0.0               True
+    loop_24_blocos                 64               FIFO                480               95.0               24.0                0.0                0.0               True
+      get_uniforme                 16                LRU               5000              12.55             4372.7                0.0               1.12              False
+      get_uniforme                 16               FIFO               5000              12.63             4368.3                0.0               1.67              False
+      get_uniforme                 32                LRU               5000              24.81             3759.7                0.0               0.88              False
+      get_uniforme                 32               FIFO               5000              24.87             3756.7                0.0               0.91              False
+      get_uniforme                 64                LRU               5000              49.45             2527.3                0.0               2.81              False
+      get_uniforme                 64               FIFO               5000              49.57             2521.3                0.0                2.3              False
+         get_80_20                 16                LRU               5000              39.31             3034.3                0.0               3.95               True
+         get_80_20                 16               FIFO               5000              36.85             3157.3                0.0               3.36               True
+         get_80_20                 32                LRU               5000              69.18             1541.0                0.0                8.5               True
+         get_80_20                 32               FIFO               5000               60.1             1995.0                0.0               7.22               True
+         get_80_20                 64                LRU               5000              86.27              686.7                0.0              12.96               True
+         get_80_20                 64               FIFO               5000              80.39              980.7                0.0              11.22               True
+scan_com_8_quentes                 16                LRU               1152              88.89              128.0                0.0                0.0               True
+scan_com_8_quentes                 16               FIFO               1152              79.86              232.0                0.0                0.0               True
+scan_com_8_quentes                 32                LRU               1152              88.89              128.0                0.0                0.0               True
+scan_com_8_quentes                 32               FIFO               1152              86.11              160.0                0.0                0.0               True
+scan_com_8_quentes                 64                LRU               1152              88.89              128.0                0.0                0.0               True
+scan_com_8_quentes                 64               FIFO               1152               87.5              144.0                0.0                0.0               True
+
+repeticao com a mesma semente: contadores identicos em todas as celulas (variacao 0%)
+var_entre_sementes_pct mede a sensibilidade a sorteios diferentes da carga, nao ruido de medicao
+
