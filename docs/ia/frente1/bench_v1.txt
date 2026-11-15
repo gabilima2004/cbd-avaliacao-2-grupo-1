@@ -1,0 +1,9 @@
+fase              politica  tempo(s)  requisicoes  leit.fis  grav.fis   hit%
+carga 3968        LRU         2.679       255936    239440      3008    6.4
+exclusao 1984     LRU         0.030         1984      1519      1492   23.4
+reinsercao 1984   LRU         1.555       127865    119491      1532    6.5
+scan frio         LRU         0.005          128       128         0    0.0
+carga 3968        FIFO        3.271       255936    239440      3008    6.4
+exclusao 1984     FIFO        0.043         1984      1523      1497   23.2
+reinsercao 1984   FIFO        1.528       127865    116148      1446    9.2
+scan frio         FIFO        0.003          128       128         0    0.0
