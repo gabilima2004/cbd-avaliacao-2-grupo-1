@@ -39,6 +39,8 @@ class BufferPool:
         self.evictions = 0
         self.fm.reads = {k: 0 for k in self.fm.reads}
         self.fm.writes = {k: 0 for k in self.fm.writes}
+        self.fm._retired_reads = {}
+        self.fm._retired_writes = {}
 
     # --- interface do contrato -------------------------------------------
     def pin(self, arquivo, bloco):
@@ -110,9 +112,30 @@ class BufferPool:
         self.flush()
         self.frames.clear()
 
+    def evict_file(self, arquivo, flush=True):
+        """Remove do pool somente os frames de ``arquivo``.
+
+        É usado por operadores externos para materializar um temporário e tornar
+        sua leitura posterior fria sem afetar páginas de outras relações.
+        """
+        keys = [key for key in self.frames if key[0] == arquivo]
+        if any(self.frames[key].pins for key in keys):
+            raise PinError(f'há páginas fixadas em {arquivo}')
+        if flush:
+            self.flush(arquivo)
+        for key in keys:
+            del self.frames[key]
+
+    def remove_file(self, arquivo):
+        """Descarta frames e remove um arquivo temporário do FileManager."""
+        if self.fm.kind.get(arquivo) != 'temp':
+            raise ValueError('remove_file aceita somente arquivos temporários')
+        self.evict_file(arquivo, flush=False)
+        self.fm.remove(arquivo)
+
     def stats(self):
-        reads = {}
-        writes = {}
+        reads = dict(self.fm._retired_reads)
+        writes = dict(self.fm._retired_writes)
         for name, kind in self.fm.kind.items():
             reads[kind] = reads.get(kind, 0) + self.fm.reads[name]
             writes[kind] = writes.get(kind, 0) + self.fm.writes[name]

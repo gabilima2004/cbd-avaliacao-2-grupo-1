@@ -49,3 +49,42 @@ Faixa sempre percorre todos os blocos de dados e overflow. `last_access='scan'` 
 - Confirmar clustering com o professor, conforme ressalva do plano; índice B+ secundário pertence à outra frente.
 
 Não há transações, recuperação de falhas, concorrência, detecção de corrupção de cadeias ou reorganização. Exclusões não devolvem blocos ao sistema operacional.
+
+## Partition Hash Join
+
+O pacote `partition_hash_join` implementa INNER equijoin externo sobre qualquer
+fonte reescaneável que ofereça `scan_pages()`. O exemplo abaixo junta o campo 0
+do heap esquerdo ao campo 1 do direito:
+
+```python
+from partition_hash_join import PartitionHashJoin, RelationInput
+
+operator = PartitionHashJoin(pool, memory_pages=8)
+left = RelationInput.from_source(heap_left, 0)
+right = RelationInput.from_source(heap_right, 1)
+
+for left_raw, right_raw in operator.join(left, right):
+    # processa o par sem modificar os registros originais
+    pass
+
+print(operator.stats)
+```
+
+O orçamento mínimo é de três páginas. Na fase de build, `B - 2` páginas de
+registros podem permanecer na tabela hash; as demais representam a leitura do
+probe e a produção lazy do resultado. As partições usam Heap Files classificados
+como `temp`, são materializadas e relidas pelo Buffer Pool e são removidas ao
+terminar, inclusive em exceções ou quando o gerador é fechado explicitamente.
+
+O hash de particionamento usa BLAKE2b determinístico. Partições grandes são
+reparticionadas com outra seed. Se uma nova rodada não reduzir a maior partição,
+o operador usa build em lotes de no máximo `B - 2` páginas e reescaneia o probe.
+Duplicatas produzem o produto cartesiano esperado. Um extrator que devolva
+`None` representa NULL: esses registros não correspondem entre si, como em um
+INNER JOIN SQL por igualdade.
+
+O limite é expresso no modelo lógico de páginas e não inclui o overhead de
+objetos do interpretador Python. O resultado não é materializado; quem abandonar
+a iteração antes do fim deve chamar `close()` no gerador para antecipar a
+remoção dos temporários. Uma instância de `PartitionHashJoin` aceita apenas uma
+execução ativa por vez.

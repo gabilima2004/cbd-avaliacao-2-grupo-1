@@ -23,6 +23,8 @@ class FileManager:
         self.kind = {}
         self.reads = {}
         self.writes = {}
+        self._retired_reads = {}
+        self._retired_writes = {}
 
     def open(self, name, kind='data'):
         """kind: 'data', 'index' ou 'overflow' (só para as métricas)."""
@@ -71,6 +73,26 @@ class FileManager:
         fh.seek(n * BLOCK)
         fh.write(data)
         self.writes[name] += 1
+
+    def close_file(self, name):
+        """Fecha um arquivo específico, preservando seus contadores de E/S."""
+        fh = self._fh.pop(name, None)
+        if fh is not None:
+            fh.close()
+        self._n.pop(name, None)
+
+    def remove(self, name):
+        """Fecha e remove um arquivo, preservando métricas já contabilizadas."""
+        self.close_file(name)
+        path = os.path.join(self.dir, name)
+        if os.path.exists(path):
+            os.remove(path)
+        kind = self.kind.pop(name, None)
+        reads = self.reads.pop(name, 0)
+        writes = self.writes.pop(name, 0)
+        if kind is not None:
+            self._retired_reads[kind] = self._retired_reads.get(kind, 0) + reads
+            self._retired_writes[kind] = self._retired_writes.get(kind, 0) + writes
 
     def close(self):
         for fh in self._fh.values():

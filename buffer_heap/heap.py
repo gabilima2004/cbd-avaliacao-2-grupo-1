@@ -34,9 +34,9 @@ class RID(NamedTuple):
 
 
 class HeapFile:
-    def __init__(self, buffer, arquivo):
+    def __init__(self, buffer, arquivo, kind='data'):
         self.buffer, self.arquivo = buffer, arquivo
-        buffer.fm.open(arquivo, 'data')
+        buffer.fm.open(arquivo, kind)
         self.free_head = 0
         if buffer.fm.nblocks(arquivo) == 0:
             n = buffer.allocate(arquivo)
