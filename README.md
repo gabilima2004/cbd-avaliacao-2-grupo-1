@@ -99,3 +99,13 @@ python -m bancada.phj --output results/partition_hash_join_initial.csv
 
 O procedimento, a fronteira da medição, o formato do CSV e os comandos de
 verificação estão documentados em `docs/BANCADA_EXPERIMENTAL.md`.
+
+Para consolidar dez repetições e gerar relatório e gráficos:
+
+```powershell
+python -m bancada.analysis `
+  --input results/partition_hash_join_10_repeticoes.csv `
+  --summary results/partition_hash_join_10_repeticoes_resumo.csv `
+  --report docs/RESULTADOS_PARTITION_HASH_JOIN.md `
+  --charts-dir results/charts
+```

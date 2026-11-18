@@ -99,6 +99,12 @@ def run_initial_experiments(output, *, small_size=248, large_size=3968,
                         replacement_policy=policy,
                         seed=seed,
                         repetition=repetition,
+                        r_data_pages=relation_r.data_blocks,
+                        s_data_pages=relation_s.data_blocks,
+                        available_access_r='heap_scan',
+                        available_access_s='heap_scan',
+                        effective_access_r='scan',
+                        effective_access_s='scan',
                     )
                     result = measure_join(
                         adapter, request, spec, data.expected_summary)

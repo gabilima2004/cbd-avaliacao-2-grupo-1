@@ -89,6 +89,12 @@ class ExperimentSpec:
     replacement_policy: str
     seed: int
     repetition: int
+    r_data_pages: int = 0
+    s_data_pages: int = 0
+    available_access_r: str = 'heap_scan'
+    available_access_s: str = 'heap_scan'
+    effective_access_r: str = 'scan'
+    effective_access_s: str = 'scan'
 
 
 @dataclass
@@ -97,6 +103,8 @@ class ExperimentResult:
     algorithm: str
     r_size: int
     s_size: int
+    r_data_pages: int
+    s_data_pages: int
     buffer_pages: int
     memory_pages: int
     replacement_policy: str
@@ -110,9 +118,17 @@ class ExperimentResult:
     buffer_requests: int
     hit_rate: float
     evictions: int
+    theoretical_base_io: int
+    measured_io: int
+    io_difference: int
+    io_ratio: float
     result_count: int
     result_checksum: str
     validation_status: str
+    available_access_r: str
+    available_access_s: str
+    effective_access_r: str
+    effective_access_s: str
     partitions_created: int = 0
     repartition_passes: int = 0
     fallback_partitions: int = 0
@@ -189,11 +205,18 @@ def measure_join(adapter: JoinAdapter, request: JoinRequest, spec: ExperimentSpe
     else:
         validation = 'ok'
 
+    r_pages = spec.r_data_pages or getattr(request.relation_r, 'data_blocks', 0)
+    s_pages = spec.s_data_pages or getattr(request.relation_s, 'data_blocks', 0)
+    theoretical = 3 * (r_pages + s_pages)
+    measured = general['physical_reads'] + general['physical_writes']
+
     return ExperimentResult(
         experiment_id=spec.experiment_id,
         algorithm=adapter.name,
         r_size=spec.r_size,
         s_size=spec.s_size,
+        r_data_pages=r_pages,
+        s_data_pages=s_pages,
         buffer_pages=spec.buffer_pages,
         memory_pages=spec.memory_pages,
         replacement_policy=spec.replacement_policy,
@@ -207,9 +230,17 @@ def measure_join(adapter: JoinAdapter, request: JoinRequest, spec: ExperimentSpe
         buffer_requests=general['requests'],
         hit_rate=general['hit_rate'],
         evictions=general['evictions'],
+        theoretical_base_io=theoretical,
+        measured_io=measured,
+        io_difference=measured - theoretical,
+        io_ratio=measured / theoretical if theoretical else 0.0,
         result_count=count,
         result_checksum=checksum,
         validation_status=validation,
+        available_access_r=spec.available_access_r,
+        available_access_s=spec.available_access_s,
+        effective_access_r=spec.effective_access_r,
+        effective_access_s=spec.effective_access_s,
         partitions_created=specific.get('partitions_created', 0),
         repartition_passes=specific.get('repartition_passes', 0),
         fallback_partitions=specific.get('fallback_partitions', 0),

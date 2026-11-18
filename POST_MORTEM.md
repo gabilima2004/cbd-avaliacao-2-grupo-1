@@ -1,4 +1,6 @@
-# Frente 3 — revisão e evidências de IA
+# Revisão e evidências de IA
+
+## Frente 3 — hash externo
 
 Prompt integral em `docs/ia/prompt.txt`. Código bruto preservado em `docs/ia/core_v1.py` e `init_v1.py` antes da primeira execução e de qualquer refatoração. SHA-256 de `core_v1.py`: `01E8B3A4417A750C44F2F916380298AE97C733F491D20F0A7801B7D1D674F017`. A implementação atual é idêntica à versão inicial; não houve refatoração nem defeito funcional observado nesta bateria. Não se apresenta melhoria fictícia sobre uma versão deliberadamente defeituosa.
 
@@ -9,3 +11,11 @@ Os testes preservados em `tests/test_hash.py` cobrem, em ordem: chave única com
 A primeira execução passou os seis testes, mas o PowerShell tratou o stderr normal do unittest como `NativeCommandError` no pipeline com Tee-Object. A evidência original está em `docs/ia/testes_primeira_execucao.txt`. Isso foi um problema de captura, não falha do hash: o runner `tests/run.py` reúne stdout/stderr via subprocess, salva UTF-8 e propaga o código real. A execução final está em `docs/ia/testes_final.txt`, com `EXIT_CODE=0`. Não existe evidência antes/depois de correção funcional porque nenhum defeito funcional foi encontrado; estes testes não provam ausência de defeitos.
 
 Limitações revisadas: o formato do registro e o adaptador de alocação são provisórios; índice secundário depende de manutenção explícita; páginas vazias não são desalocadas; módulo simples sofre com skew; cadeias longas aumentam custo de inserção (inclusive no hash não único). O simulado não verifica persistência real, substituição LRU/FIFO ou contadores de disco. As validações de integração estão listadas no README. A autoria e a análise final devem ser completadas pelo integrante após executar a bancada real e compreender os testes.
+
+## Frente 6 — Partition Hash Join e bancada
+
+As evidências, referências do código bruto, problemas encontrados, correções,
+testes e limitações da frente 6 estão documentados em
+`docs/ia/frente6/REVISAO_E_POST_MORTEM_FRENTE6.md`. Os prompts consolidados
+estão em `docs/ia/frente6/PROMPTS.md`, e o primeiro código versionado é
+identificado de forma imutável em `docs/ia/frente6/codigo_bruto_v1/README.md`.

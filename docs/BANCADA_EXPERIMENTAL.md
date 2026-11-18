@@ -225,16 +225,18 @@ colunas existentes.
 
 ## Estrutura do CSV
 
-Cada linha possui 35 campos. Os principais são:
+Cada linha possui 45 campos. Os principais são:
 
 | Grupo | Campos |
 |---|---|
 | Identificação | `experiment_id`, `algorithm`, `seed`, `repetition` |
-| Dados | `r_size`, `s_size` |
+| Dados | `r_size`, `s_size`, `r_data_pages`, `s_data_pages` |
 | Memória | `buffer_pages`, `memory_pages`, `replacement_policy` |
 | Tempo | `elapsed_seconds` |
 | Buffer | `physical_reads`, `physical_writes`, `cache_hits`, `cache_misses`, `buffer_requests`, `hit_rate`, `evictions` |
+| Custo | `theoretical_base_io`, `measured_io`, `io_difference`, `io_ratio` |
 | Resultado | `result_count`, `result_checksum`, `validation_status`, `error_message` |
+| Acesso | `available_access_r`, `available_access_s`, `effective_access_r`, `effective_access_s` |
 | PHJ | `partitions_created`, `repartition_passes`, `fallback_partitions`, `max_depth`, `build_records`, `max_build_records`, `probe_records`, `null_records`, `temp_reads`, `temp_writes` |
 | Política de medição | `output_policy`, `output_materialized`, `pending_writes_flushed`, `os_fsync` |
 
@@ -360,18 +362,34 @@ Se a variação continuar acima de 5%, execute mais repetições e investigue
 interferência do sistema. A contagem de E/S é o indicador principal do trabalho;
 tempo de relógio é complementar.
 
+### 10. Gerar resumo estatístico, relatório e gráficos
+
+```powershell
+python -m bancada.analysis `
+  --input results/partition_hash_join_10_repeticoes.csv `
+  --summary results/partition_hash_join_10_repeticoes_resumo.csv `
+  --report docs/RESULTADOS_PARTITION_HASH_JOIN.md `
+  --charts-dir results/charts `
+  --threshold-percent 5
+```
+
+O analisador usa o coeficiente de variação, isto é, desvio padrão amostral
+dividido pela média. A opção `--fail-unstable` faz o comando terminar com código
+2 quando alguma configuração ultrapassa o limite; sem essa opção, a
+instabilidade é registrada no relatório sem impedir a geração dos artefatos.
+
 ## Evidência da primeira execução oficial
 
 O comando padrão foi executado com sucesso e produziu 18 linhas válidas.
 
 | R | S | Política | Tempo médio inicial | Leituras | Escritas | Hits | Misses | Partições | Repartições | Fallback |
 |---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 248 | 248 | LRU | 0,008375 s | 32 | 18 | 530 | 32 | 2 | 0 | 0 |
-| 248 | 248 | FIFO | 0,006579 s | 32 | 18 | 530 | 32 | 2 | 0 | 0 |
-| 248 | 3.968 | LRU | 0,042081 s | 272 | 138 | 4.490 | 272 | 2 | 0 | 0 |
-| 248 | 3.968 | FIFO | 0,092904 s | 279 | 145 | 4.483 | 279 | 2 | 0 | 0 |
-| 3.968 | 3.968 | LRU | 0,134902 s | 748 | 516 | 9.225 | 748 | 24 | 1 | 0 |
-| 3.968 | 3.968 | FIFO | 0,110723 s | 716 | 484 | 9.257 | 716 | 24 | 1 | 0 |
+| 248 | 248 | LRU | 0,011791 s | 32 | 18 | 530 | 32 | 2 | 0 | 0 |
+| 248 | 248 | FIFO | 0,006859 s | 32 | 18 | 530 | 32 | 2 | 0 | 0 |
+| 248 | 3.968 | LRU | 0,035072 s | 272 | 138 | 4.490 | 272 | 2 | 0 | 0 |
+| 248 | 3.968 | FIFO | 0,048265 s | 279 | 145 | 4.483 | 279 | 2 | 0 | 0 |
+| 3.968 | 3.968 | LRU | 0,102108 s | 748 | 516 | 9.225 | 748 | 24 | 1 | 0 |
+| 3.968 | 3.968 | FIFO | 0,108907 s | 716 | 484 | 9.257 | 716 | 24 | 1 | 0 |
 
 Todas as execuções retornaram a quantidade esperada de pares:
 
@@ -387,6 +405,12 @@ estatística final.
 
 O caso grande–grande realizou um reparticionamento. Nenhum caso precisou usar o
 fallback.
+
+Uma campanha posterior com dez repetições por configuração também validou todas
+as 60 execuções e manteve a E/S constante. Nenhuma das seis configurações ficou
+abaixo de 5% de coeficiente de variação temporal. O resultado consolidado está
+em `docs/RESULTADOS_PARTITION_HASH_JOIN.md`; por isso, a análise final prioriza
+E/S e trata tempo como indicador complementar sensível ao ambiente.
 
 ## Interpretação inicial
 

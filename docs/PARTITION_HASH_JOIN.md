@@ -483,23 +483,15 @@ observável e testável.
 Essas limitações são compatíveis com o escopo acadêmico, que concentra a
 avaliação em correção, memória lógica, E/S física e comparação entre algoritmos.
 
-## Trabalho ainda pendente para a bancada
+## Trabalho ainda pendente para a bancada completa
 
-O núcleo do PHJ e sua suíte estão implementados. A bancada experimental ainda
-deve executar os cenários oficiais do grupo:
+O núcleo do PHJ, sua suíte e a matriz inicial Heap File + PHJ estão
+implementados. A bancada completa do grupo ainda deve integrar:
 
-- dados gerados com semente 42;
-- relações de 248 e 3.968 registros;
-- combinações pequena–pequena, pequena–grande e grande–grande;
-- Buffer Pool de 32 páginas;
-- 16 páginas de trabalho para o join;
-- comparação entre LRU e FIFO;
-- buffer frio e contadores zerados antes de cada medição;
-- pelo menos três repetições, buscando variação inferior a 5%;
-- validação do resultado com SQLite;
-- geração de CSV com configuração, caminho efetivo e métricas;
-- comparação entre custo teórico e custo medido;
 - integração com nested-loop em blocos e sort-merge join.
+- os cinco cenários de disponibilidade de métodos de acesso;
+- execução comparável dos três algoritmos sobre as mesmas bases;
+- tabelas e gráficos conjuntos para o relatório final.
 
 Para o Partition Hash Join, o custo clássico sem reparticionamento adicional
 pode ser usado como referência:
