@@ -62,6 +62,7 @@ class JoinStats:
     fallback_partitions: int = 0
     max_depth: int = 0
     build_records: int = 0
+    max_build_records: int = 0
     probe_records: int = 0
     output_pairs: int = 0
     null_records: int = 0
@@ -282,6 +283,8 @@ class PartitionHashJoin:
                 key = build_key(raw)
                 table.setdefault(key, []).append(raw)
                 self.stats.build_records += 1
+        self.stats.max_build_records = max(
+            self.stats.max_build_records, sum(len(rows) for rows in table.values()))
         for page in probe.scan_pages():
             for raw in page:
                 self.stats.probe_records += 1
@@ -299,6 +302,8 @@ class PartitionHashJoin:
             for raw in chunk:
                 table.setdefault(build_key(raw), []).append(raw)
                 self.stats.build_records += 1
+            self.stats.max_build_records = max(self.stats.max_build_records,
+                                               len(chunk))
             for page in probe.scan_pages():
                 for raw in page:
                     self.stats.probe_records += 1
