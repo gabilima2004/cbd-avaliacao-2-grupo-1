@@ -202,7 +202,8 @@ class TestHeap(Base):
         p, h = self.heap()
         h.insert(registro.encode(1, 2, 3))
         p.close()
-        raw = open(os.path.join(self.dir, 'heap'), 'rb').read()
+        with open(os.path.join(self.dir, 'heap'), 'rb') as stream:
+            raw = stream.read()
         self.assertEqual(len(raw), 2 * BLOCK)
         self.assertEqual(raw[:8], b'HEAPv002')
         self.assertEqual(raw[BLOCK + 8], 1)                      # marca do slot 0
@@ -317,6 +318,7 @@ class TestHeap(Base):
         rnd = random.Random(42)
         p, h = self.heap()
         db = sqlite3.connect(':memory:')
+        self.addCleanup(db.close)
         db.execute('create table aluno(aluno_id int, dre int, faixa_cr int)')
         for i in range(3968):
             row = (i, 100000 + i, rnd.randrange(100))

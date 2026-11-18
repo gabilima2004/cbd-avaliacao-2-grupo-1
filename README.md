@@ -88,3 +88,14 @@ objetos do interpretador Python. O resultado não é materializado; quem abandon
 a iteração antes do fim deve chamar `close()` no gerador para antecipar a
 remoção dos temporários. Uma instância de `PartitionHashJoin` aceita apenas uma
 execução ativa por vez.
+
+## Bancada inicial do Partition Hash Join
+
+A matriz inicial Heap File + PHJ pode ser executada com:
+
+```powershell
+python -m bancada.phj --output results/partition_hash_join_initial.csv
+```
+
+O procedimento, a fronteira da medição, o formato do CSV e os comandos de
+verificação estão documentados em `docs/BANCADA_EXPERIMENTAL.md`.
